@@ -1,1 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dağ Oto Asistan</title>
 
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f3f6;
+    color: #172033;
+}
+
+.header {
+    background: #0b1f3a;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 28px;
+}
+
+.header p {
+    margin-top: 6px;
+    color: #d9e1ec;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    padding: 25px 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card .icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.card h3 {
+    font-size: 17px;
+}
+
+.footer {
+    text-align: center;
+    padding: 25px;
+    color: #777;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h1>DAĞ OTO ASİSTAN</h1>
+    <p>Servis Yönetim Sistemi</p>
+</div>
+
+<div class="container">
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">👤</div>
+            <h3>Müşteriler</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">🚛</div>
+            <h3>Araçlar / Plakalar</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔧</div>
+            <h3>Yeni Servis</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚙️</div>
+            <h3>Mekanik</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <h3>Elektrik</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">📦</div>
+            <h3>Yedek Parça</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">📋</div>
+            <h3>Parça Kataloğu</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">💳</div>
+            <h3>Ödemeler</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">💰</div>
+            <h3>Günlük Giderler</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">📊</div>
+            <h3>Raporlar</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">🔔</div>
+            <h3>Hatırlatmalar</h3>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚙️</div>
+            <h3>Ayarlar</h3>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    Dağ Oto Ford • Dağ Oto Asistan
+</div>
+
+</body>
+</html>
