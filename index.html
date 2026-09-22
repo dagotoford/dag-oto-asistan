@@ -6,73 +6,162 @@
 <title>Dağ Oto Asistan</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef1f5;
+    color:#172033;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background: #f1f3f6;
-    color: #172033;
+.header{
+    background:#0b1f3a;
+    color:white;
+    padding:20px;
+    text-align:center;
 }
 
-.header {
-    background: #0b1f3a;
-    color: white;
-    padding: 20px;
-    text-align: center;
+.header h1{font-size:28px}
+.header p{margin-top:6px;color:#d9e1ec}
+
+.container{
+    max-width:1100px;
+    margin:25px auto;
+    padding:15px;
 }
 
-.header h1 {
-    font-size: 28px;
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:16px;
 }
 
-.header p {
-    margin-top: 6px;
-    color: #d9e1ec;
+.card{
+    background:white;
+    padding:25px 15px;
+    border-radius:12px;
+    text-align:center;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.2s;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 20px;
+.card:hover{transform:translateY(-3px)}
+.card .icon{font-size:32px;margin-bottom:10px}
+
+.page{display:none}
+.page.active{display:block}
+
+.back{
+    border:0;
+    background:#0b1f3a;
+    color:white;
+    padding:10px 16px;
+    border-radius:8px;
+    cursor:pointer;
+    margin-bottom:18px;
 }
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 18px;
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
 }
 
-.card {
-    background: white;
-    padding: 25px 15px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 3px 12px rgba(0,0,0,.08);
-    cursor: pointer;
-    transition: .2s;
+.panel h2{margin-bottom:18px}
+
+.form{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:12px;
 }
 
-.card:hover {
-    transform: translateY(-3px);
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccd2da;
+    border-radius:7px;
+    font-size:15px;
 }
 
-.card .icon {
-    font-size: 32px;
-    margin-bottom: 12px;
+.btn{
+    border:0;
+    padding:12px 18px;
+    border-radius:7px;
+    cursor:pointer;
+    font-weight:bold;
 }
 
-.card h3 {
-    font-size: 17px;
+.btn-add{
+    background:#d71920;
+    color:white;
 }
 
-.footer {
-    text-align: center;
-    padding: 25px;
-    color: #777;
+.customer{
+    margin-top:15px;
+    padding:16px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+}
+
+.customer-info strong{
+    display:block;
+    font-size:18px;
+    margin-bottom:5px;
+}
+
+.customer-info span{
+    display:block;
+    color:#666;
+    margin-top:3px;
+}
+
+.actions{
+    display:flex;
+    gap:7px;
+}
+
+.btn-edit{
+    background:#0b1f3a;
+    color:white;
+}
+
+.btn-delete{
+    background:#d71920;
+    color:white;
+}
+
+.empty{
+    margin-top:20px;
+    padding:25px;
+    text-align:center;
+    color:#777;
+}
+
+.footer{
+    text-align:center;
+    padding:25px;
+    color:#777;
+}
+
+@media(max-width:600px){
+    .customer{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .actions{
+        width:100%;
+    }
+
+    .actions button{
+        flex:1;
+    }
 }
 </style>
 </head>
@@ -84,69 +173,61 @@ body {
     <p>Servis Yönetim Sistemi</p>
 </div>
 
-<div class="container">
+<!-- ANA SAYFA -->
+<div id="home" class="container page active">
 
     <div class="cards">
 
-        <div class="card">
+        <div class="card" onclick="openPage('customers')">
             <div class="icon">👤</div>
             <h3>Müşteriler</h3>
         </div>
 
-        <div class="card">
-            <div class="icon">🚛</div>
-            <h3>Araçlar / Plakalar</h3>
+        <div class="card"><div class="icon">🚛</div><h3>Araçlar / Plakalar</h3></div>
+        <div class="card"><div class="icon">🔧</div><h3>Yeni Servis</h3></div>
+        <div class="card"><div class="icon">⚙️</div><h3>Mekanik</h3></div>
+        <div class="card"><div class="icon">⚡</div><h3>Elektrik</h3></div>
+        <div class="card"><div class="icon">📦</div><h3>Yedek Parça</h3></div>
+        <div class="card"><div class="icon">📋</div><h3>Parça Kataloğu</h3></div>
+        <div class="card"><div class="icon">💳</div><h3>Ödemeler</h3></div>
+        <div class="card"><div class="icon">💰</div><h3>Günlük Giderler</h3></div>
+        <div class="card"><div class="icon">📊</div><h3>Raporlar</h3></div>
+        <div class="card"><div class="icon">🔔</div><h3>Hatırlatmalar</h3></div>
+        <div class="card"><div class="icon">⚙️</div><h3>Ayarlar</h3></div>
+
+    </div>
+
+</div>
+
+<!-- MÜŞTERİLER -->
+<div id="customers" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>👤 Müşteriler</h2>
+
+        <div class="form">
+
+            <input id="customerName" type="text"
+                   placeholder="Müşteri adı / Firma">
+
+            <input id="customerPhone" type="text"
+                   placeholder="Telefon">
+
+            <input id="customerAddress" type="text"
+                   placeholder="Adres">
+
+            <button class="btn btn-add" onclick="saveCustomer()">
+                + Müşteri Ekle
+            </button>
+
         </div>
 
-        <div class="card">
-            <div class="icon">🔧</div>
-            <h3>Yeni Servis</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">⚙️</div>
-            <h3>Mekanik</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">⚡</div>
-            <h3>Elektrik</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">📦</div>
-            <h3>Yedek Parça</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">📋</div>
-            <h3>Parça Kataloğu</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">💳</div>
-            <h3>Ödemeler</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">💰</div>
-            <h3>Günlük Giderler</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">📊</div>
-            <h3>Raporlar</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">🔔</div>
-            <h3>Hatırlatmalar</h3>
-        </div>
-
-        <div class="card">
-            <div class="icon">⚙️</div>
-            <h3>Ayarlar</h3>
-        </div>
+        <div id="customerList"></div>
 
     </div>
 
@@ -155,6 +236,157 @@ body {
 <div class="footer">
     Dağ Oto Ford • Dağ Oto Asistan
 </div>
+
+<script>
+
+let customers = JSON.parse(localStorage.getItem("dagOtoCustomers") || "[]");
+let editIndex = -1;
+
+function openPage(page){
+
+    document.querySelectorAll(".page").forEach(function(p){
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page).classList.add("active");
+
+    if(page === "customers"){
+        renderCustomers();
+    }
+
+    window.scrollTo(0,0);
+}
+
+function saveCustomer(){
+
+    const name = document.getElementById("customerName").value.trim();
+    const phone = document.getElementById("customerPhone").value.trim();
+    const address = document.getElementById("customerAddress").value.trim();
+
+    if(!name){
+        alert("Müşteri adı / firma adı giriniz.");
+        return;
+    }
+
+    const customer = {
+        name:name,
+        phone:phone,
+        address:address
+    };
+
+    if(editIndex === -1){
+        customers.push(customer);
+    }else{
+        customers[editIndex] = customer;
+        editIndex = -1;
+    }
+
+    localStorage.setItem(
+        "dagOtoCustomers",
+        JSON.stringify(customers)
+    );
+
+    clearForm();
+    renderCustomers();
+}
+
+function renderCustomers(){
+
+    const list = document.getElementById("customerList");
+
+    if(customers.length === 0){
+        list.innerHTML =
+        '<div class="empty">Henüz müşteri eklenmedi.</div>';
+        return;
+    }
+
+    list.innerHTML = "";
+
+    customers.forEach(function(customer,index){
+
+        const div = document.createElement("div");
+        div.className = "customer";
+
+        div.innerHTML = `
+            <div class="customer-info">
+                <strong>${escapeHtml(customer.name)}</strong>
+                <span>📞 ${escapeHtml(customer.phone || "Telefon yok")}</span>
+                <span>📍 ${escapeHtml(customer.address || "Adres yok")}</span>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-edit"
+                        onclick="editCustomer(${index})">
+                    ✏️ Düzenle
+                </button>
+
+                <button class="btn btn-delete"
+                        onclick="deleteCustomer(${index})">
+                    🗑️ Sil
+                </button>
+            </div>
+        `;
+
+        list.appendChild(div);
+    });
+}
+
+function editCustomer(index){
+
+    const customer = customers[index];
+
+    document.getElementById("customerName").value =
+        customer.name;
+
+    document.getElementById("customerPhone").value =
+        customer.phone;
+
+    document.getElementById("customerAddress").value =
+        customer.address;
+
+    editIndex = index;
+
+    window.scrollTo(0,0);
+}
+
+function deleteCustomer(index){
+
+    if(!confirm("Bu kaydı silmek istediğinize emin misiniz?")){
+        return;
+    }
+
+    customers.splice(index,1);
+
+    localStorage.setItem(
+        "dagOtoCustomers",
+        JSON.stringify(customers)
+    );
+
+    renderCustomers();
+}
+
+function clearForm(){
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("customerPhone").value = "";
+    document.getElementById("customerAddress").value = "";
+
+    editIndex = -1;
+}
+
+function escapeHtml(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+renderCustomers();
+
+</script>
 
 </body>
 </html>
