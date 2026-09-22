@@ -3,31 +3,59 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1f3a">
+
 <title>Dağ Oto Asistan</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
 body{
-    font-family:Arial,sans-serif;
+    font-family:Arial,Helvetica,sans-serif;
     background:#eef1f5;
     color:#172033;
 }
 
-.header{
-    background:#0b1f3a;
-    color:white;
-    padding:20px;
-    text-align:center;
+button,input,select,textarea{
+    font-family:inherit;
 }
 
-.header h1{font-size:28px}
-.header p{margin-top:6px;color:#d9e1ec}
+.header{
+    background:#0b1f3a;
+    color:#fff;
+    padding:18px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 2px 10px rgba(0,0,0,.2);
+}
+
+.header h1{
+    font-size:26px;
+}
+
+.header p{
+    margin-top:5px;
+    color:#dce4ee;
+}
 
 .container{
-    max-width:1100px;
+    max-width:1200px;
     margin:25px auto;
     padding:15px;
+}
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
 }
 
 .cards{
@@ -37,120 +65,235 @@ body{
 }
 
 .card{
-    background:white;
+    background:#fff;
     padding:25px 15px;
-    border-radius:12px;
+    border-radius:14px;
     text-align:center;
     box-shadow:0 3px 12px rgba(0,0,0,.08);
     cursor:pointer;
     transition:.2s;
+    border:1px solid #e2e6eb;
 }
 
-.card:hover{transform:translateY(-3px)}
-.card .icon{font-size:32px;margin-bottom:10px}
+.card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 7px 18px rgba(0,0,0,.13);
+}
 
-.page{display:none}
-.page.active{display:block}
+.card .icon{
+    font-size:34px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    font-size:17px;
+}
+
+.panel{
+    background:#fff;
+    border-radius:14px;
+    padding:22px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
+
+.panel h2{
+    margin-bottom:20px;
+}
 
 .back{
     border:0;
     background:#0b1f3a;
-    color:white;
-    padding:10px 16px;
+    color:#fff;
+    padding:11px 17px;
     border-radius:8px;
     cursor:pointer;
     margin-bottom:18px;
 }
 
-.panel{
-    background:white;
-    padding:20px;
-    border-radius:12px;
-    box-shadow:0 3px 12px rgba(0,0,0,.08);
-}
-
-.panel h2{margin-bottom:18px}
-
 .form{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
     gap:12px;
 }
 
-input{
+input,select,textarea{
     width:100%;
     padding:12px;
-    border:1px solid #ccd2da;
-    border-radius:7px;
+    border:1px solid #ccd3dc;
+    border-radius:8px;
+    background:#fff;
     font-size:15px;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
 .btn{
     border:0;
-    padding:12px 18px;
-    border-radius:7px;
+    padding:12px 17px;
+    border-radius:8px;
     cursor:pointer;
     font-weight:bold;
 }
 
-.btn-add{
+.btn-primary{
     background:#d71920;
-    color:white;
+    color:#fff;
 }
 
-.customer{
-    margin-top:15px;
-    padding:16px;
-    border:1px solid #ddd;
+.btn-dark{
+    background:#0b1f3a;
+    color:#fff;
+}
+
+.btn-gray{
+    background:#e5e8ec;
+    color:#172033;
+}
+
+.btn-danger{
+    background:#d71920;
+    color:#fff;
+}
+
+.btn-small{
+    padding:8px 11px;
+    font-size:13px;
+}
+
+.list{
+    margin-top:20px;
+}
+
+.item{
+    background:#f8f9fb;
+    border:1px solid #dfe3e8;
     border-radius:10px;
+    padding:15px;
+    margin-bottom:10px;
     display:flex;
     justify-content:space-between;
     align-items:center;
     gap:15px;
 }
 
-.customer-info strong{
+.item-info strong{
     display:block;
-    font-size:18px;
+    font-size:17px;
     margin-bottom:5px;
 }
 
-.customer-info span{
+.item-info span{
     display:block;
-    color:#666;
+    color:#626b77;
     margin-top:3px;
 }
 
 .actions{
     display:flex;
     gap:7px;
-}
-
-.btn-edit{
-    background:#0b1f3a;
-    color:white;
-}
-
-.btn-delete{
-    background:#d71920;
-    color:white;
+    flex-wrap:wrap;
 }
 
 .empty{
-    margin-top:20px;
-    padding:25px;
     text-align:center;
+    padding:30px;
     color:#777;
+}
+
+.stat-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.stat{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
+}
+
+.stat small{
+    color:#777;
+}
+
+.stat strong{
+    display:block;
+    font-size:27px;
+    margin-top:8px;
+}
+
+.section-title{
+    margin:25px 0 12px;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 9px;
+    border-radius:20px;
+    background:#e9edf2;
+    font-size:12px;
+    margin:2px;
 }
 
 .footer{
     text-align:center;
-    padding:25px;
+    padding:30px;
     color:#777;
 }
 
+.top-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.search{
+    margin-bottom:15px;
+}
+
+.music{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    background:#0b1f3a;
+    color:#fff;
+    padding:10px 13px;
+    border-radius:30px;
+    z-index:100;
+    box-shadow:0 4px 15px rgba(0,0,0,.25);
+}
+
+.music button{
+    border:0;
+    background:none;
+    color:#fff;
+    cursor:pointer;
+    font-size:17px;
+}
+
 @media(max-width:600px){
-    .customer{
+
+    .header h1{
+        font-size:22px;
+    }
+
+    .container{
+        padding:10px;
+        margin:15px auto;
+    }
+
+    .card{
+        padding:20px 10px;
+    }
+
+    .item{
         flex-direction:column;
         align-items:flex-start;
     }
@@ -162,19 +305,25 @@ input{
     .actions button{
         flex:1;
     }
+
+    .top-actions{
+        flex-direction:column;
+        align-items:stretch;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
+<header class="header">
     <h1>DAĞ OTO ASİSTAN</h1>
     <p>Servis Yönetim Sistemi</p>
-</div>
+</header>
+
 
 <!-- ANA SAYFA -->
-<div id="home" class="container page active">
+<section id="home" class="container page active">
 
     <div class="cards">
 
@@ -184,26 +333,67 @@ input{
         </div>
 
         <div class="card" onclick="openPage('vehicles')">
-    <div class="icon">🚛</div>
-    <h3>Araçlar / Plakalar</h3>
-</div>div class="icon">🚛</div><h3>Araçlar / Plakalar</h3></div>
-        <div class="card"><div class="icon">🔧</div><h3>Yeni Servis</h3></div>
-        <div class="card"><div class="icon">⚙️</div><h3>Mekanik</h3></div>
-        <div class="card"><div class="icon">⚡</div><h3>Elektrik</h3></div>
-        <div class="card"><div class="icon">📦</div><h3>Yedek Parça</h3></div>
-        <div class="card"><div class="icon">📋</div><h3>Parça Kataloğu</h3></div>
-        <div class="card"><div class="icon">💳</div><h3>Ödemeler</h3></div>
-        <div class="card"><div class="icon">💰</div><h3>Günlük Giderler</h3></div>
-        <div class="card"><div class="icon">📊</div><h3>Raporlar</h3></div>
-        <div class="card"><div class="icon">🔔</div><h3>Hatırlatmalar</h3></div>
-        <div class="card"><div class="icon">⚙️</div><h3>Ayarlar</h3></div>
+            <div class="icon">🚛</div>
+            <h3>Araçlar / Plakalar</h3>
+        </div>
+
+        <div class="card" onclick="openPage('services')">
+            <div class="icon">🔧</div>
+            <h3>Yeni Servis</h3>
+        </div>
+
+        <div class="card" onclick="openPage('mechanical')">
+            <div class="icon">⚙️</div>
+            <h3>Mekanik</h3>
+        </div>
+
+        <div class="card" onclick="openPage('electrical')">
+            <div class="icon">⚡</div>
+            <h3>Elektrik</h3>
+        </div>
+
+        <div class="card" onclick="openPage('parts')">
+            <div class="icon">📦</div>
+            <h3>Yedek Parça</h3>
+        </div>
+
+        <div class="card" onclick="openPage('catalog')">
+            <div class="icon">📋</div>
+            <h3>Parça Kataloğu</h3>
+        </div>
+
+        <div class="card" onclick="openPage('payments')">
+            <div class="icon">💳</div>
+            <h3>Ödemeler</h3>
+        </div>
+
+        <div class="card" onclick="openPage('expenses')">
+            <div class="icon">💰</div>
+            <h3>Günlük Giderler</h3>
+        </div>
+
+        <div class="card" onclick="openPage('reports')">
+            <div class="icon">📊</div>
+            <h3>Raporlar</h3>
+        </div>
+
+        <div class="card" onclick="openPage('reminders')">
+            <div class="icon">🔔</div>
+            <h3>Hatırlatmalar</h3>
+        </div>
+
+        <div class="card" onclick="openPage('settings')">
+            <div class="icon">⚙️</div>
+            <h3>Ayarlar</h3>
+        </div>
 
     </div>
 
-</div>
+</section>
+
 
 <!-- MÜŞTERİLER -->
-<div id="customers" class="container page">
+<section id="customers" class="container page">
 
     <button class="back" onclick="openPage('home')">
         ← Ana Sayfaya Dön
@@ -215,33 +405,25 @@ input{
 
         <div class="form">
 
-            <input id="customerName" type="text"
-                   placeholder="Müşteri adı / Firma">
+            <input id="customerName" placeholder="Müşteri / Firma adı">
+            <input id="customerPhone" placeholder="Telefon">
+            <input id="customerAddress" placeholder="Adres">
 
-            <input id="customerPhone" type="text"
-                   placeholder="Telefon">
-
-            <input id="customerAddress" type="text"
-                   placeholder="Adres">
-
-            <button class="btn btn-add" onclick="saveCustomer()">
+            <button class="btn btn-primary" onclick="saveCustomer()">
                 + Müşteri Ekle
             </button>
 
         </div>
 
-        <div id="customerList"></div>
+        <div id="customerList" class="list"></div>
 
     </div>
 
-</div>
+</section>
 
-<div class="footer">
-    Dağ Oto Ford • Dağ Oto Asistan
-</div>
-<!-- ARAÇLAR / PLAKALAR -->
 
-<div id="vehicles" class="container page">
+<!-- ARAÇLAR -->
+<section id="vehicles" class="container page">
 
     <button class="back" onclick="openPage('home')">
         ← Ana Sayfaya Dön
@@ -253,186 +435,1300 @@ input{
 
         <div class="form">
 
-            <input id="vehicleCustomer"
-                   type="text"
-                   placeholder="Müşteri / Firma">
+            <input id="vehicleCustomer" placeholder="Müşteri / Firma">
+            <input id="vehiclePlate" placeholder="Plaka">
+            <input id="vehicleModel" placeholder="Araç / Model">
+            <input id="vehicleVin" placeholder="Şasi / VIN">
+            <input id="vehicleKm" type="number" placeholder="Kilometre">
 
-            <input id="vehiclePlate"
-                   type="text"
-                   placeholder="Plaka">
-
-            <input id="vehicleModel"
-                   type="text"
-                   placeholder="Araç / Model">
-
-            <input id="vehicleVin"
-                   type="text"
-                   placeholder="Şasi / VIN">
-
-            <input id="vehicleKm"
-                   type="number"
-                   placeholder="Kilometre">
-
-            <button class="btn btn-add"
-                    onclick="saveVehicle()">
+            <button class="btn btn-primary" onclick="saveVehicle()">
                 + Araç Ekle
             </button>
 
         </div>
 
-        <div id="vehicleList"></div>
+        <div id="vehicleList" class="list"></div>
 
     </div>
 
+</section>
+
+
+<!-- YENİ SERVİS -->
+<section id="services" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>🔧 Yeni Servis Kaydı</h2>
+
+        <div class="form">
+
+            <input id="serviceDate" type="date">
+
+            <input id="serviceCustomer" placeholder="Müşteri / Firma">
+
+            <input id="servicePlate" placeholder="Plaka">
+
+            <input id="serviceModel" placeholder="Araç / Model">
+
+            <input id="serviceVin" placeholder="Şasi / VIN">
+
+            <input id="serviceKm" type="number" placeholder="Kilometre">
+
+            <input id="serviceStock" placeholder="Stok Kodu"
+                   oninput="findPartByCode()">
+
+            <input id="servicePart"
+                   placeholder="Parça Adı">
+
+            <input id="serviceQty"
+                   type="number"
+                   value="1"
+                   min="1"
+                   placeholder="Adet">
+
+            <input id="servicePrice"
+                   type="number"
+                   step="0.01"
+                   placeholder="Birim Fiyat">
+
+            <input id="serviceTotal"
+                   type="number"
+                   readonly
+                   placeholder="Toplam Tutar">
+
+        </div>
+
+        <br>
+
+        <textarea id="serviceWork"
+                  placeholder="Yapılan İş"></textarea>
+
+        <br><br>
+
+        <button class="btn btn-primary" onclick="saveService()">
+            + Servis Kaydet
+        </button>
+
+        <div id="serviceList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- MEKANİK -->
+<section id="mechanical" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>⚙️ Mekanik</h2>
+
+        <div class="form">
+
+            <input id="mechanicCustomer" placeholder="Müşteri">
+            <input id="mechanicPlate" placeholder="Plaka">
+            <input id="mechanicDate" type="date">
+            <input id="mechanicDescription" placeholder="Yapılan mekanik işlem">
+            <input id="mechanicAmount" type="number" step="0.01" placeholder="Tutar">
+
+            <button class="btn btn-primary" onclick="saveMechanical()">
+                + Mekanik Kaydet
+            </button>
+
+        </div>
+
+        <div id="mechanicalList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ELEKTRİK -->
+<section id="electrical" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>⚡ Elektrik</h2>
+
+        <div class="form">
+
+            <input id="electricCustomer" placeholder="Müşteri">
+            <input id="electricPlate" placeholder="Plaka">
+            <input id="electricDate" type="date">
+            <input id="electricDescription" placeholder="Yapılan elektrik işlemi">
+            <input id="electricAmount" type="number" step="0.01" placeholder="Tutar">
+
+            <button class="btn btn-primary" onclick="saveElectrical()">
+                + Elektrik Kaydet
+            </button>
+
+        </div>
+
+        <div id="electricalList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- YEDEK PARÇA -->
+<section id="parts" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>📦 Yedek Parça</h2>
+
+        <div class="form">
+
+            <input id="partCustomer" placeholder="Müşteri">
+            <input id="partPlate" placeholder="Plaka">
+            <input id="partStock" placeholder="Stok Kodu">
+            <input id="partName" placeholder="Parça Adı">
+            <input id="partQty" type="number" value="1" placeholder="Adet">
+            <input id="partPrice" type="number" step="0.01" placeholder="Birim Fiyat">
+
+            <button class="btn btn-primary" onclick="savePart()">
+                + Parça Kaydet
+            </button>
+
+        </div>
+
+        <div id="partsList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- KATALOG -->
+<section id="catalog" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>📋 Parça Kataloğu</h2>
+
+        <input class="search"
+               id="catalogSearch"
+               placeholder="Stok kodu veya parça ara..."
+               oninput="renderCatalog()">
+
+        <div class="form">
+
+            <input id="catalogCode" placeholder="Stok Kodu">
+            <input id="catalogName" placeholder="Parça Adı">
+            <input id="catalogModel" placeholder="Araç / Model">
+            <input id="catalogPrice" type="number" step="0.01" placeholder="Güncel Fiyat">
+
+            <button class="btn btn-primary" onclick="saveCatalog()">
+                + Kataloğa Ekle
+            </button>
+
+        </div>
+
+        <div id="catalogList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- ÖDEMELER -->
+<section id="payments" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>💳 Ödemeler</h2>
+
+        <div class="form">
+
+            <input id="paymentCustomer" placeholder="Müşteri">
+            <input id="paymentDate" type="date">
+            <input id="paymentAmount" type="number" step="0.01" placeholder="Ödeme Tutarı">
+            <input id="paymentNote" placeholder="Açıklama">
+
+            <button class="btn btn-primary" onclick="savePayment()">
+                + Ödeme Ekle
+            </button>
+
+        </div>
+
+        <div id="paymentList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- GİDERLER -->
+<section id="expenses" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>💰 Günlük Giderler</h2>
+
+        <div class="form">
+
+            <input id="expenseDate" type="date">
+            <input id="expenseDescription" placeholder="Gider açıklaması">
+            <input id="expenseAmount" type="number" step="0.01" placeholder="Tutar">
+
+            <button class="btn btn-primary" onclick="saveExpense()">
+                + Gider Ekle
+            </button>
+
+        </div>
+
+        <div id="expenseList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- RAPORLAR -->
+<section id="reports" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>📊 Raporlar</h2>
+
+        <div class="stat-grid">
+
+            <div class="stat">
+                <small>Müşteri</small>
+                <strong id="reportCustomers">0</strong>
+            </div>
+
+            <div class="stat">
+                <small>Araç</small>
+                <strong id="reportVehicles">0</strong>
+            </div>
+
+            <div class="stat">
+                <small>Servis</small>
+                <strong id="reportServices">0</strong>
+            </div>
+
+            <div class="stat">
+                <small>Toplam Servis</small>
+                <strong id="reportServiceTotal">0 TL</strong>
+            </div>
+
+            <div class="stat">
+                <small>Toplam Ödeme</small>
+                <strong id="reportPayments">0 TL</strong>
+            </div>
+
+            <div class="stat">
+                <small>Toplam Gider</small>
+                <strong id="reportExpenses">0 TL</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HATIRLATMALAR -->
+<section id="reminders" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>🔔 Hatırlatmalar</h2>
+
+        <div class="form">
+
+            <input id="reminderDate" type="date">
+            <input id="reminderTitle" placeholder="Hatırlatma">
+            <input id="reminderNote" placeholder="Not">
+
+            <button class="btn btn-primary" onclick="saveReminder()">
+                + Hatırlatma Ekle
+            </button>
+
+        </div>
+
+        <div id="reminderList" class="list"></div>
+
+    </div>
+
+</section>
+
+
+<!-- AYARLAR -->
+<section id="settings" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>⚙️ Ayarlar</h2>
+
+        <p style="margin-bottom:15px;">
+            Dağ Oto Asistan ayarları
+        </p>
+
+        <button class="btn btn-dark" onclick="exportData()">
+            💾 Verileri Yedekle
+        </button>
+
+        <button class="btn btn-danger"
+                onclick="clearAllData()"
+                style="margin-left:8px;">
+            🗑️ Tüm Verileri Sil
+        </button>
+
+    </div>
+
+</section>
+
+
+<div class="music">
+    🎵
+    <button onclick="toggleMusic()">▶ / ⏸</button>
 </div>
+
+
+<footer class="footer">
+    Dağ Oto Ford • Dağ Oto Asistan
+</footer>
+
+
 <script>
 
-let customers = JSON.parse(localStorage.getItem("dagOtoCustomers") || "[]");
-let editIndex = -1;
+const DB = {
+
+    customers: "dagoto_customers",
+    vehicles: "dagoto_vehicles",
+    services: "dagoto_services",
+    mechanical: "dagoto_mechanical",
+    electrical: "dagoto_electrical",
+    parts: "dagoto_parts",
+    catalog: "dagoto_catalog",
+    payments: "dagoto_payments",
+    expenses: "dagoto_expenses",
+    reminders: "dagoto_reminders"
+
+};
+
+function getData(key){
+    return JSON.parse(localStorage.getItem(DB[key]) || "[]");
+}
+
+function setData(key,data){
+    localStorage.setItem(DB[key],JSON.stringify(data));
+}
 
 function openPage(page){
 
-    document.querySelectorAll(".page").forEach(function(p){
-        p.classList.remove("active");
+    document.querySelectorAll(".page").forEach(function(el){
+        el.classList.remove("active");
     });
 
-    document.getElementById(page).classList.add("active");
+    const target=document.getElementById(page);
 
-    if(page === "customers"){
-        renderCustomers();
+    if(target){
+        target.classList.add("active");
     }
+
+    if(page==="customers") renderCustomers();
+    if(page==="vehicles") renderVehicles();
+    if(page==="services") renderServices();
+    if(page==="mechanical") renderMechanical();
+    if(page==="electrical") renderElectrical();
+    if(page==="parts") renderParts();
+    if(page==="catalog") renderCatalog();
+    if(page==="payments") renderPayments();
+    if(page==="expenses") renderExpenses();
+    if(page==="reports") renderReports();
+    if(page==="reminders") renderReminders();
 
     window.scrollTo(0,0);
 }
 
+function esc(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* MÜŞTERİLER */
+
 function saveCustomer(){
 
-    const name = document.getElementById("customerName").value.trim();
-    const phone = document.getElementById("customerPhone").value.trim();
-    const address = document.getElementById("customerAddress").value.trim();
+    const data=getData("customers");
+
+    const name=document.getElementById("customerName").value.trim();
 
     if(!name){
-        alert("Müşteri adı / firma adı giriniz.");
+        alert("Müşteri / Firma adı giriniz.");
         return;
     }
 
-    const customer = {
+    data.push({
+
+        id:Date.now(),
         name:name,
-        phone:phone,
-        address:address
-    };
+        phone:document.getElementById("customerPhone").value.trim(),
+        address:document.getElementById("customerAddress").value.trim()
 
-    if(editIndex === -1){
-        customers.push(customer);
-    }else{
-        customers[editIndex] = customer;
-        editIndex = -1;
-    }
+    });
 
-    localStorage.setItem(
-        "dagOtoCustomers",
-        JSON.stringify(customers)
-    );
+    setData("customers",data);
 
-    clearForm();
+    document.getElementById("customerName").value="";
+    document.getElementById("customerPhone").value="";
+    document.getElementById("customerAddress").value="";
+
     renderCustomers();
 }
 
 function renderCustomers(){
 
-    const list = document.getElementById("customerList");
+    const data=getData("customers");
+    const list=document.getElementById("customerList");
 
-    if(customers.length === 0){
-        list.innerHTML =
-        '<div class="empty">Henüz müşteri eklenmedi.</div>';
+    if(!data.length){
+        list.innerHTML='<div class="empty">Henüz müşteri yok.</div>';
         return;
     }
 
-    list.innerHTML = "";
+    list.innerHTML=data.map(function(x){
 
-    customers.forEach(function(customer,index){
+        return `
+        <div class="item">
 
-        const div = document.createElement("div");
-        div.className = "customer";
-
-        div.innerHTML = `
-            <div class="customer-info">
-                <strong>${escapeHtml(customer.name)}</strong>
-                <span>📞 ${escapeHtml(customer.phone || "Telefon yok")}</span>
-                <span>📍 ${escapeHtml(customer.address || "Adres yok")}</span>
+            <div class="item-info">
+                <strong>${esc(x.name)}</strong>
+                <span>📞 ${esc(x.phone || "Telefon yok")}</span>
+                <span>📍 ${esc(x.address || "Adres yok")}</span>
             </div>
 
             <div class="actions">
-                <button class="btn btn-edit"
-                        onclick="editCustomer(${index})">
+
+                <button class="btn btn-dark btn-small"
+                    onclick="editCustomer(${x.id})">
                     ✏️ Düzenle
                 </button>
 
-                <button class="btn btn-delete"
-                        onclick="deleteCustomer(${index})">
+                <button class="btn btn-danger btn-small"
+                    onclick="deleteRecord('customers',${x.id},renderCustomers)">
+                    🗑️ Sil
+                </button>
+
+            </div>
+
+        </div>`;
+    }).join("");
+}
+
+function editCustomer(id){
+
+    const data=getData("customers");
+    const x=data.find(a=>a.id===id);
+
+    if(!x)return;
+
+    const name=prompt("Müşteri / Firma adı:",x.name);
+    if(name===null)return;
+
+    const phone=prompt("Telefon:",x.phone);
+    if(phone===null)return;
+
+    const address=prompt("Adres:",x.address);
+    if(address===null)return;
+
+    x.name=name;
+    x.phone=phone;
+    x.address=address;
+
+    setData("customers",data);
+    renderCustomers();
+}
+
+
+/* ARAÇLAR */
+
+function saveVehicle(){
+
+    const data=getData("vehicles");
+
+    const plate=document.getElementById("vehiclePlate").value.trim();
+
+    if(!plate){
+        alert("Plaka giriniz.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+
+        customer:document.getElementById("vehicleCustomer").value.trim(),
+
+        plate:plate,
+
+        model:document.getElementById("vehicleModel").value.trim(),
+
+        vin:document.getElementById("vehicleVin").value.trim(),
+
+        km:document.getElementById("vehicleKm").value.trim()
+
+    });
+
+    setData("vehicles",data);
+
+    ["vehicleCustomer","vehiclePlate","vehicleModel","vehicleVin","vehicleKm"]
+    .forEach(id=>document.getElementById(id).value="");
+
+    renderVehicles();
+}
+
+function renderVehicles(){
+
+    const data=getData("vehicles");
+    const list=document.getElementById("vehicleList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Henüz araç yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(function(x){
+
+        return `
+        <div class="item">
+
+            <div class="item-info">
+                <strong>🚛 ${esc(x.plate)}</strong>
+                <span>👤 ${esc(x.customer || "-")}</span>
+                <span>🚚 ${esc(x.model || "-")}</span>
+                <span>🔢 Şasi: ${esc(x.vin || "-")}</span>
+                <span>📏 ${esc(x.km || "-")} km</span>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-danger btn-small"
+                    onclick="deleteRecord('vehicles',${x.id},renderVehicles)">
                     🗑️ Sil
                 </button>
             </div>
-        `;
 
-        list.appendChild(div);
+        </div>`;
+    }).join("");
+}
+
+
+/* SERVİS */
+
+function calculateServiceTotal(){
+
+    const qty=parseFloat(document.getElementById("serviceQty").value)||0;
+    const price=parseFloat(document.getElementById("servicePrice").value)||0;
+
+    document.getElementById("serviceTotal").value=(qty*price).toFixed(2);
+}
+
+document.addEventListener("input",function(e){
+
+    if(e.target.id==="serviceQty" || e.target.id==="servicePrice"){
+        calculateServiceTotal();
+    }
+
+});
+
+
+function findPartByCode(){
+
+    const code=document.getElementById("serviceStock").value.trim();
+
+    const data=getData("catalog");
+
+    const part=data.find(x=>x.code.toLowerCase()===code.toLowerCase());
+
+    if(part){
+
+        document.getElementById("servicePart").value=part.name;
+        document.getElementById("servicePrice").value=part.price;
+
+        calculateServiceTotal();
+    }
+}
+
+function saveService(){
+
+    const data=getData("services");
+
+    const customer=document.getElementById("serviceCustomer").value.trim();
+    const plate=document.getElementById("servicePlate").value.trim();
+
+    if(!customer || !plate){
+        alert("Müşteri ve plaka giriniz.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+
+        date:document.getElementById("serviceDate").value,
+
+        customer:customer,
+
+        plate:plate,
+
+        model:document.getElementById("serviceModel").value,
+
+        vin:document.getElementById("serviceVin").value,
+
+        km:document.getElementById("serviceKm").value,
+
+        stock:document.getElementById("serviceStock").value,
+
+        part:document.getElementById("servicePart").value,
+
+        qty:document.getElementById("serviceQty").value,
+
+        price:document.getElementById("servicePrice").value,
+
+        total:document.getElementById("serviceTotal").value,
+
+        work:document.getElementById("serviceWork").value
+
     });
+
+    setData("services",data);
+
+    alert("Servis kaydı oluşturuldu.");
+
+    renderServices();
 }
 
-function editCustomer(index){
+function renderServices(){
 
-    const customer = customers[index];
+    const data=getData("services");
+    const list=document.getElementById("serviceList");
 
-    document.getElementById("customerName").value =
-        customer.name;
+    if(!data.length){
+        list.innerHTML='<div class="empty">Henüz servis kaydı yok.</div>';
+        return;
+    }
 
-    document.getElementById("customerPhone").value =
-        customer.phone;
+    list.innerHTML=data.map(function(x){
 
-    document.getElementById("customerAddress").value =
-        customer.address;
+        return `
+        <div class="item">
 
-    editIndex = index;
+            <div class="item-info">
+                <strong>🔧 ${esc(x.plate)} - ${esc(x.customer)}</strong>
+                <span>📅 ${esc(x.date || "-")}</span>
+                <span>🔧 ${esc(x.work || "-")}</span>
+                <span>📦 ${esc(x.part || "-")}</span>
+                <span>💰 ${esc(x.total || "0")} TL</span>
+            </div>
 
-    window.scrollTo(0,0);
+            <div class="actions">
+                <button class="btn btn-danger btn-small"
+                    onclick="deleteRecord('services',${x.id},renderServices)">
+                    🗑️ Sil
+                </button>
+            </div>
+
+        </div>`;
+    }).join("");
 }
 
-function deleteCustomer(index){
+
+/* MEKANİK */
+
+function saveMechanical(){
+
+    const data=getData("mechanical");
+
+    data.push({
+
+        id:Date.now(),
+        customer:document.getElementById("mechanicCustomer").value,
+        plate:document.getElementById("mechanicPlate").value,
+        date:document.getElementById("mechanicDate").value,
+        description:document.getElementById("mechanicDescription").value,
+        amount:document.getElementById("mechanicAmount").value
+
+    });
+
+    setData("mechanical",data);
+
+    renderMechanical();
+}
+
+function renderMechanical(){
+
+    const data=getData("mechanical");
+    const list=document.getElementById("mechanicalList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Mekanik kaydı yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>⚙️ ${esc(x.plate)} - ${esc(x.customer)}</strong>
+                <span>${esc(x.description)}</span>
+                <span>${esc(x.amount || "0")} TL</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('mechanical',${x.id},renderMechanical)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* ELEKTRİK */
+
+function saveElectrical(){
+
+    const data=getData("electrical");
+
+    data.push({
+
+        id:Date.now(),
+        customer:document.getElementById("electricCustomer").value,
+        plate:document.getElementById("electricPlate").value,
+        date:document.getElementById("electricDate").value,
+        description:document.getElementById("electricDescription").value,
+        amount:document.getElementById("electricAmount").value
+
+    });
+
+    setData("electrical",data);
+
+    renderElectrical();
+}
+
+function renderElectrical(){
+
+    const data=getData("electrical");
+    const list=document.getElementById("electricalList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Elektrik kaydı yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>⚡ ${esc(x.plate)} - ${esc(x.customer)}</strong>
+                <span>${esc(x.description)}</span>
+                <span>${esc(x.amount || "0")} TL</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('electrical',${x.id},renderElectrical)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* YEDEK PARÇA */
+
+function savePart(){
+
+    const data=getData("parts");
+
+    const name=document.getElementById("partName").value.trim();
+
+    if(!name){
+        alert("Parça adı giriniz.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+        customer:document.getElementById("partCustomer").value,
+        plate:document.getElementById("partPlate").value,
+        stock:document.getElementById("partStock").value,
+        name:name,
+        qty:document.getElementById("partQty").value,
+        price:document.getElementById("partPrice").value
+
+    });
+
+    setData("parts",data);
+
+    renderParts();
+}
+
+function renderParts(){
+
+    const data=getData("parts");
+    const list=document.getElementById("partsList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Yedek parça kaydı yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>📦 ${esc(x.name)}</strong>
+                <span>Stok: ${esc(x.stock || "-")}</span>
+                <span>${esc(x.customer || "-")} / ${esc(x.plate || "-")}</span>
+                <span>${esc(x.qty)} adet × ${esc(x.price)} TL</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('parts',${x.id},renderParts)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* KATALOG */
+
+function saveCatalog(){
+
+    const data=getData("catalog");
+
+    const code=document.getElementById("catalogCode").value.trim();
+    const name=document.getElementById("catalogName").value.trim();
+
+    if(!code || !name){
+        alert("Stok kodu ve parça adı giriniz.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+        code:code,
+        name:name,
+        model:document.getElementById("catalogModel").value,
+        price:document.getElementById("catalogPrice").value,
+        priceDate:new Date().toLocaleDateString("tr-TR")
+
+    });
+
+    setData("catalog",data);
+
+    renderCatalog();
+}
+
+function renderCatalog(){
+
+    const data=getData("catalog");
+    const search=document.getElementById("catalogSearch").value.toLowerCase();
+
+    const filtered=data.filter(x=>
+
+        x.code.toLowerCase().includes(search) ||
+        x.name.toLowerCase().includes(search)
+
+    );
+
+    const list=document.getElementById("catalogList");
+
+    if(!filtered.length){
+        list.innerHTML='<div class="empty">Katalogda kayıt bulunamadı.</div>';
+        return;
+    }
+
+    list.innerHTML=filtered.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>📋 ${esc(x.code)} - ${esc(x.name)}</strong>
+                <span>🚛 ${esc(x.model || "-")}</span>
+                <span>💰 ${esc(x.price || "0")} TL</span>
+                <span>📅 Fiyat tarihi: ${esc(x.priceDate)}</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('catalog',${x.id},renderCatalog)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* ÖDEMELER */
+
+function savePayment(){
+
+    const data=getData("payments");
+
+    const amount=parseFloat(
+        document.getElementById("paymentAmount").value
+    ) || 0;
+
+    if(amount<=0){
+        alert("Geçerli ödeme tutarı giriniz.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+        customer:document.getElementById("paymentCustomer").value,
+        date:document.getElementById("paymentDate").value,
+        amount:amount,
+        note:document.getElementById("paymentNote").value
+
+    });
+
+    setData("payments",data);
+
+    renderPayments();
+}
+
+function renderPayments(){
+
+    const data=getData("payments");
+    const list=document.getElementById("paymentList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Ödeme kaydı yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>💳 ${esc(x.customer || "-")}</strong>
+                <span>📅 ${esc(x.date || "-")}</span>
+                <span>💰 ${esc(x.amount)} TL</span>
+                <span>${esc(x.note || "")}</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('payments',${x.id},renderPayments)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* GİDER */
+
+function saveExpense(){
+
+    const data=getData("expenses");
+
+    const amount=parseFloat(
+        document.getElementById("expenseAmount").value
+    ) || 0;
+
+    if(amount<=0){
+        alert("Gider tutarı giriniz.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+        date:document.getElementById("expenseDate").value,
+        description:document.getElementById("expenseDescription").value,
+        amount:amount
+
+    });
+
+    setData("expenses",data);
+
+    renderExpenses();
+}
+
+function renderExpenses(){
+
+    const data=getData("expenses");
+    const list=document.getElementById("expenseList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Gider kaydı yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>💰 ${esc(x.description)}</strong>
+                <span>📅 ${esc(x.date || "-")}</span>
+                <span>${esc(x.amount)} TL</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('expenses',${x.id},renderExpenses)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* RAPORLAR */
+
+function renderReports(){
+
+    const customers=getData("customers");
+    const vehicles=getData("vehicles");
+    const services=getData("services");
+    const payments=getData("payments");
+    const expenses=getData("expenses");
+
+    const serviceTotal=services.reduce(
+        (sum,x)=>sum+(parseFloat(x.total)||0),0
+    );
+
+    const paymentTotal=payments.reduce(
+        (sum,x)=>sum+(parseFloat(x.amount)||0),0
+    );
+
+    const expenseTotal=expenses.reduce(
+        (sum,x)=>sum+(parseFloat(x.amount)||0),0
+    );
+
+    document.getElementById("reportCustomers").textContent=customers.length;
+    document.getElementById("reportVehicles").textContent=vehicles.length;
+    document.getElementById("reportServices").textContent=services.length;
+
+    document.getElementById("reportServiceTotal").textContent=
+        serviceTotal.toFixed(2)+" TL";
+
+    document.getElementById("reportPayments").textContent=
+        paymentTotal.toFixed(2)+" TL";
+
+    document.getElementById("reportExpenses").textContent=
+        expenseTotal.toFixed(2)+" TL";
+}
+
+
+/* HATIRLATMALAR */
+
+function saveReminder(){
+
+    const data=getData("reminders");
+
+    const title=document.getElementById("reminderTitle").value.trim();
+
+    if(!title){
+        alert("Hatırlatma yazınız.");
+        return;
+    }
+
+    data.push({
+
+        id:Date.now(),
+        date:document.getElementById("reminderDate").value,
+        title:title,
+        note:document.getElementById("reminderNote").value
+
+    });
+
+    setData("reminders",data);
+
+    renderReminders();
+}
+
+function renderReminders(){
+
+    const data=getData("reminders");
+    const list=document.getElementById("reminderList");
+
+    if(!data.length){
+        list.innerHTML='<div class="empty">Hatırlatma yok.</div>';
+        return;
+    }
+
+    list.innerHTML=data.map(x=>`
+
+        <div class="item">
+
+            <div class="item-info">
+                <strong>🔔 ${esc(x.title)}</strong>
+                <span>📅 ${esc(x.date || "-")}</span>
+                <span>${esc(x.note || "")}</span>
+            </div>
+
+            <button class="btn btn-danger btn-small"
+                onclick="deleteRecord('reminders',${x.id},renderReminders)">
+                🗑️ Sil
+            </button>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* GENEL SİLME */
+
+function deleteRecord(key,id,callback){
 
     if(!confirm("Bu kaydı silmek istediğinize emin misiniz?")){
         return;
     }
 
-    customers.splice(index,1);
+    const data=getData(key).filter(x=>x.id!==id);
 
-    localStorage.setItem(
-        "dagOtoCustomers",
-        JSON.stringify(customers)
+    setData(key,data);
+
+    callback();
+}
+
+
+/* YEDEK */
+
+function exportData(){
+
+    const backup={};
+
+    Object.keys(DB).forEach(function(key){
+        backup[key]=getData(key);
+    });
+
+    const blob=new Blob(
+        [JSON.stringify(backup,null,2)],
+        {type:"application/json"}
     );
 
-    renderCustomers();
+    const url=URL.createObjectURL(blob);
+
+    const a=document.createElement("a");
+
+    a.href=url;
+    a.download="dag-oto-asistan-yedek.json";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
 }
 
-function clearForm(){
 
-    document.getElementById("customerName").value = "";
-    document.getElementById("customerPhone").value = "";
-    document.getElementById("customerAddress").value = "";
+/* TÜM VERİLERİ SİL */
 
-    editIndex = -1;
+function clearAllData(){
+
+    if(!confirm(
+        "Tüm Dağ Oto Asistan verileri silinecek. Emin misiniz?"
+    )){
+        return;
+    }
+
+    Object.keys(DB).forEach(function(key){
+        localStorage.removeItem(DB[key]);
+    });
+
+    location.reload();
 }
 
-function escapeHtml(text){
 
-    return String(text)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+/* MÜZİK */
+
+function toggleMusic(){
+
+    alert(
+        "Kral FM müzik bağlantısını bir sonraki aşamada ekleyeceğiz."
+    );
+
 }
+
+
+/* İLK AÇILIŞ */
 
 renderCustomers();
+renderVehicles();
+renderServices();
+renderMechanical();
+renderElectrical();
+renderParts();
+renderCatalog();
+renderPayments();
+renderExpenses();
+renderReports();
+renderReminders();
 
 </script>
 
