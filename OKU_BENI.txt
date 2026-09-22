@@ -1,0 +1,15 @@
+DAĞ OTO ASİSTAN - PYTHONSUZ EXE OLUŞTURMA
+
+Bu klasörde GitHub Actions dosyası hazırdır.
+
+YAPILACAK:
+1. GitHub'da yeni bir repo oluştur.
+2. Bu klasördeki dosyaların tamamını repo içine yükle.
+3. GitHub'da Actions sekmesine gir.
+4. "Dag Oto Asistan - Windows EXE" iş akışının tamamlanmasını bekle.
+5. Actions > ilgili çalıştırma > Artifacts bölümünden
+   "DagOtoAsistan-Windows10" dosyasını indir.
+6. ZIP'i aç. İçindeki DagOtoAsistan.exe dosyasına çift tıkla.
+
+Kullanıcının bilgisayarında Python kurulması gerekmez.
+EXE Windows üzerinde GitHub'ın Windows makinesinde oluşturulur.
