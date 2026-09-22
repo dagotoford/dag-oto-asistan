@@ -1,0 +1,35 @@
+name: Dag Oto Asistan - Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Projeyi al
+        uses: actions/checkout@v4
+
+      - name: Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Paketleri kur
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pyinstaller
+
+      - name: EXE oluştur
+        run: |
+          pyinstaller --noconfirm --clean --windowed --onefile --name DagOtoAsistan main.py
+
+      - name: EXE'yi yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: DagOtoAsistan-Windows10
+          path: dist/DagOtoAsistan.exe
