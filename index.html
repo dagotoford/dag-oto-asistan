@@ -183,7 +183,10 @@ input{
             <h3>Müşteriler</h3>
         </div>
 
-        <div class="card"><div class="icon">🚛</div><h3>Araçlar / Plakalar</h3></div>
+        <div class="card" onclick="openPage('vehicles')">
+    <div class="icon">🚛</div>
+    <h3>Araçlar / Plakalar</h3>
+</div>div class="icon">🚛</div><h3>Araçlar / Plakalar</h3></div>
         <div class="card"><div class="icon">🔧</div><h3>Yeni Servis</h3></div>
         <div class="card"><div class="icon">⚙️</div><h3>Mekanik</h3></div>
         <div class="card"><div class="icon">⚡</div><h3>Elektrik</h3></div>
@@ -236,7 +239,52 @@ input{
 <div class="footer">
     Dağ Oto Ford • Dağ Oto Asistan
 </div>
+<!-- ARAÇLAR / PLAKALAR -->
 
+<div id="vehicles" class="container page">
+
+    <button class="back" onclick="openPage('home')">
+        ← Ana Sayfaya Dön
+    </button>
+
+    <div class="panel">
+
+        <h2>🚛 Araçlar / Plakalar</h2>
+
+        <div class="form">
+
+            <input id="vehicleCustomer"
+                   type="text"
+                   placeholder="Müşteri / Firma">
+
+            <input id="vehiclePlate"
+                   type="text"
+                   placeholder="Plaka">
+
+            <input id="vehicleModel"
+                   type="text"
+                   placeholder="Araç / Model">
+
+            <input id="vehicleVin"
+                   type="text"
+                   placeholder="Şasi / VIN">
+
+            <input id="vehicleKm"
+                   type="number"
+                   placeholder="Kilometre">
+
+            <button class="btn btn-add"
+                    onclick="saveVehicle()">
+                + Araç Ekle
+            </button>
+
+        </div>
+
+        <div id="vehicleList"></div>
+
+    </div>
+
+</div>
 <script>
 
 let customers = JSON.parse(localStorage.getItem("dagOtoCustomers") || "[]");
