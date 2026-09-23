@@ -1232,7 +1232,28 @@ function esc(text){
         .replaceAll('"',"&quot;");
 }
 
+const permissions = {
+    "Yavuz": ["parts", "catalog"],
+    "Enes": ["mechanical"],
+    "Ramazan": ["all"],
+    "Hülya": ["all"]
+};
+
 function openPage(id){
+
+    const user = localStorage.getItem("dagOtoUser");
+
+    if(!user || !permissions[user]){
+        return;
+    }
+
+    if(
+        !permissions[user].includes("all") &&
+        !permissions[user].includes(id)
+    ){
+        alert("Bu bölüme erişim yetkiniz yok.");
+        return;
+    }
 
     document.querySelectorAll(".page").forEach(function(page){
         page.classList.remove("active");
@@ -1248,7 +1269,6 @@ function openPage(id){
         refreshAll();
     }
 }
-function refreshAll(){
 
     renderCustomers();
     renderVehicles();
