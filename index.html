@@ -2295,7 +2295,38 @@ function musicVolume() {
 }
 
 function loginUser() {
+const permissions = {
+    "Yavuz": ["parts", "catalog"],
+    "Enes": ["mechanical"],
+    "Ramazan": ["all"],
+    "Hülya": ["all"]
+};
 
+function applyPermissions() {
+
+    const user = localStorage.getItem("dagOtoUser");
+
+    if (!user) return;
+
+    document.querySelectorAll(".card").forEach(card => {
+
+        const page = card.closest(".page");
+
+        if (!page) return;
+
+        const pageId = page.id;
+
+        if (
+            permissions[user].includes("all") ||
+            permissions[user].includes(pageId)
+        ) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+
+    });
+}
     const user = document.getElementById("loginUser").value;
     const password = document.getElementById("loginPassword").value;
     const error = document.getElementById("loginError");
