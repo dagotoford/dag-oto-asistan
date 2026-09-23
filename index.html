@@ -14,27 +14,8 @@
     padding:0;
 }
 
-<script>
-function loginUser() {
-    const user = document.getElementById("loginUser").value;
-    const password = document.getElementById("loginPassword").value;
-    const error = document.getElementById("loginError");
-
-    const users = {
-        "Yavuz": "1234",
-        "Enes": "1234",
-        "Ramazan": "1234",
-        "Hülya": "1234"
-    };
-
-    if (users[user] === password) {
-        document.getElementById("loginScreen").style.display = "none";
-        error.style.display = "none";
-    } else {
-        error.style.display = "block";
-    }
-}
-</script>    font-family:Arial,Helvetica,sans-serif;
+body{
+    font-family:Arial,Helvetica,sans-serif;
     background:#071a35;
     color:#fff;
     min-height:100vh;
@@ -43,7 +24,6 @@ function loginUser() {
 button,input,select,textarea{
     font-family:inherit;
 }
-
 .header{
     background:#0b2347;
     border-bottom:2px solid #d71920;
@@ -2323,3 +2303,29 @@ function musicVolume() {
         radio.muted = !radio.muted;
     }
 }
+<script>
+function loginUser() {
+
+    const user = document.getElementById("loginUser").value;
+    const password = document.getElementById("loginPassword").value;
+    const error = document.getElementById("loginError");
+
+    const users = {
+        "Yavuz": "1234",
+        "Enes": "1234",
+        "Ramazan": "1234",
+        "Hülya": "1234"
+    };
+
+    if (user !== "" && users[user] === password) {
+
+        document.getElementById("loginScreen").style.display = "none";
+        error.style.display = "none";
+
+    } else {
+
+        error.style.display = "block";
+
+    }
+}
+</script>
