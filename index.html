@@ -365,7 +365,9 @@ footer{
 </head>
 
 <body>
-<audio id="bgMusic" src="dag_oto_background.mp3" loop preload="auto"></audio>
+<audio id="bgMusic" controls preload="none" style="display:none;">
+    <source src="https://yayin.kalpfm.com:8080/stream" type="audio/mpeg">
+</audio>
 
 <button onclick="toggleMusic()" id="musicBtn"
 style="position:fixed;right:20px;top:80px;z-index:9999;
@@ -2154,85 +2156,43 @@ function deleteAllData(){
 }
 
 
-/* MÜZİK */
+//* MÜZİK */
 let musicPlaying = false;
 
 function updateMusicButton() {
-    const buttons = document.querySelectorAll("#musicBtn");
-
-    buttons.forEach(btn => {
+    document.querySelectorAll("#musicBtn").forEach(btn => {
         btn.textContent = musicPlaying ? "⏸" : "▶";
     });
 }
 
 function toggleMusic() {
-    if (bgMusic.paused) {
-        bgMusic.play()
+    const radio = document.getElementById("radioPlayer");
+
+    if (!radio) {
+        alert("Radyo oynatıcı bulunamadı.");
+        return;
+    }
+
+    if (radio.paused) {
+        radio.play()
             .then(() => {
                 musicPlaying = true;
                 updateMusicButton();
             })
             .catch(() => {
-                alert("Müzik başlatılamadı. Tekrar ▶ butonuna bas.");
+                alert("Radyo başlatılamadı. Tekrar ▶ butonuna bas.");
             });
     } else {
-        bgMusic.pause();
+        radio.pause();
         musicPlaying = false;
         updateMusicButton();
     }
 }
 
 function musicVolume() {
-    bgMusic.muted = !bgMusic.muted;
+    const radio = document.getElementById("radioPlayer");
 
-    const buttons = document.querySelectorAll('button[title="Ses"]');
-
-    buttons.forEach(btn => {
-        btn.textContent = bgMusic.muted ? "🔇" : "🔊";
-    });
+    if (radio) {
+        radio.muted = !radio.muted;
+    }
 }
-
-bgMusic.volume = 0.25;
-
-bgMusic.addEventListener("play", () => {
-    musicPlaying = true;
-    updateMusicButton();
-});
-
-bgMusic.addEventListener("pause", () => {
-    musicPlaying = false;
-    updateMusicButton();
-});
-document.addEventListener("DOMContentLoaded",()=>{
-
-    refreshAll();
-
-    const today=
-        new Date().toISOString().split("T")[0];
-
-    const dateIds=[
-        "serviceDate",
-        "mechanicalDate",
-        "electricalDate",
-        "paymentDate",
-        "expenseDate",
-        "reminderDate",
-        "catalogDate"
-    ];
-
-    dateIds.forEach(id=>{
-
-        const el=document.getElementById(id);
-
-        if(el && !el.value){
-            el.value=today;
-        }
-
-    });
-
-});
-
-</script>
-
-</body>
-</html>
