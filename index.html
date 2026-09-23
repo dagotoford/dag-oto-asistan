@@ -1252,7 +1252,8 @@ function openPage(id){
     !permissions[user].includes("all") &&
     !permissions[user].includes(id)
 ){
-
+    alert("Bu bölüme erişim yetkiniz yok.");
+    return;
     document.querySelectorAll(".page").forEach(function(page){
         page.classList.remove("active");
     });
