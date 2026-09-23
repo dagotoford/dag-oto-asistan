@@ -963,9 +963,19 @@ width:48px;height:48px;font-size:20px;cursor:pointer;">
 
     </div>
 
-    <div class="search">
-        <input placeholder="🔎 Stok kodu veya parça ara..." oninput="renderCatalog(this.value)">
-    </div>
+<div class="search">
+    <input
+        id="catalogSearch"
+        placeholder="🔎 Parça kodu veya parça adı ara... Örn: GC46"
+        oninput="renderCatalog(this.value)"
+    >
+</div>
+
+<div id="catalogResultInfo" style="
+    margin-bottom:12px;
+    color:#9eb0c6;
+    font-size:14px;
+"></div>
 
     <div id="catalogList" class="list"></div>
 
@@ -1914,19 +1924,113 @@ function saveCatalog(){
 
 function renderCatalog(search=""){
 
-    const list=document.getElementById("catalogList");
+    const list = document.getElementById("catalogList");
+    const info = document.getElementById("catalogResultInfo");
 
-    if(!list)return;
+    if(!list) return;
 
-    const data=getData("catalog");
+    const data = getData("catalog");
 
-    const q=(search || "").toLowerCase();
+    const q = String(search || "")
+        .trim()
+        .toLocaleLowerCase("tr-TR");
 
-    const filtered=data.filter(x=>
-        x.code.toLowerCase().includes(q) ||
-        x.name.toLowerCase().includes(q) ||
-        x.model.toLowerCase().includes(q)
-    );
+    const filtered = data.filter(x => {
+
+        const code = String(x.code || "")
+            .toLocaleLowerCase("tr-TR");
+
+        const name = String(x.name || "")
+            .toLocaleLowerCase("tr-TR");
+
+        const model = String(x.model || "")
+            .toLocaleLowerCase("tr-TR");
+
+        return (
+            !q ||
+            code.includes(q) ||
+            name.includes(q) ||
+            model.includes(q)
+        );
+
+    });
+
+    if(info){
+
+        if(q){
+            info.textContent =
+                `"${search}" için ${filtered.length} parça bulundu.`;
+        }else{
+            info.textContent =
+                `Katalogda ${data.length} parça bulunuyor.`;
+        }
+
+    }
+
+    if(!filtered.length){
+
+        list.innerHTML = `
+            <div class="empty">
+                🔎 "${esc(search)}" için parça bulunamadı.
+                <br><br>
+                Kodu veya parça adının bir bölümünü deneyin.
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = filtered.map(x => `
+
+        <div class="item">
+
+            <h3>📋 ${esc(x.code || "Stok kodu yok")}</h3>
+
+            <p>
+                🔧 <strong>${esc(x.name || "Parça adı yok")}</strong>
+            </p>
+
+            <p>
+                🚛 Araç / Model:
+                ${esc(x.model || "Belirtilmemiş")}
+            </p>
+
+            <p>
+                💰 Güncel Fiyat:
+                <strong>${money(x.price)}</strong>
+            </p>
+
+            <p>
+                📅 Fiyat tarihi:
+                ${esc(x.date || "Belirtilmemiş")}
+            </p>
+
+            <p>
+                🔄 Eski fiyat:
+                ${(x.oldPrices || []).length} kayıt
+            </p>
+
+            <div class="actions">
+
+                <button
+                    class="btn-edit"
+                    onclick="editCatalog('${x.id}')">
+                    ✏️ Düzenle
+                </button>
+
+                <button
+                    class="btn-delete"
+                    onclick="deleteItem('catalog','${x.id}')">
+                    🗑️ Sil
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
 
     list.innerHTML=filtered.length
         ? filtered.map(x=>`
