@@ -2314,7 +2314,16 @@ const permissions = {
 };
 
 function applyPermissions() {
+document.addEventListener("DOMContentLoaded", function () {
 
+    const user = localStorage.getItem("dagOtoUser");
+
+    if (user) {
+        document.getElementById("loginScreen").style.display = "none";
+        applyPermissions();
+    }
+
+});
     const user = localStorage.getItem("dagOtoUser");
 
     if (!user) return;
