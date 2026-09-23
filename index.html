@@ -2424,6 +2424,7 @@ function renderParts(){
 
 
 /* KATALOG */
+/* KATALOG */
 
 function saveCatalog(){
 
@@ -2442,22 +2443,34 @@ function saveCatalog(){
         normalizePartCode(x.code) === normalizedCode
     );
 
+    const name =
+        document.getElementById("catalogName").value.trim();
+
+    const model =
+        document.getElementById("catalogModel").value.trim();
+
+    const price =
+        Number(document.getElementById("catalogPrice").value || 0);
+
+    const date =
+        document.getElementById("catalogDate").value;
+
     if(existing){
 
         existing.oldPrices = existing.oldPrices || [];
 
         existing.oldPrices.push({
-            price: existing.price,
-            date: existing.date
+            price: existing.price || 0,
+            date: existing.date || ""
         });
 
         existing.code = code;
-        existing.name = document.getElementById("catalogName").value.trim();
-        existing.model = document.getElementById("catalogModel").value.trim();
-        existing.price = Number(
-            document.getElementById("catalogPrice").value || 0
-        );
-        existing.date = document.getElementById("catalogDate").value;
+        existing.name = name;
+        existing.model = model;
+        existing.price = price;
+        existing.date = date;
+
+        alert("Parça güncellendi.");
 
     }else{
 
@@ -2467,87 +2480,42 @@ function saveCatalog(){
 
             code: code,
 
-            name: document.getElementById("catalogName").value.trim(),
+            name: name,
 
-            model: document.getElementById("catalogModel").value.trim(),
+            model: model,
 
-            price: Number(
-                document.getElementById("catalogPrice").value || 0
-            ),
+            price: price,
 
-            date: document.getElementById("catalogDate").value,
+            date: date,
 
             oldPrices: []
 
         });
 
+        alert("Parça kataloğa eklendi.");
     }
 
     setData("catalog", data);
 
     renderCatalog();
 
-    alert("Parça kataloğa kaydedildi.");
-
-}
-
-    const existing=data.find(x=>x.code===code);
-
-    if(existing){
-
-        existing.oldPrices=existing.oldPrices || [];
-
-        existing.oldPrices.push({
-
-            price:existing.price,
-
-            date:existing.date
-
-        });
-
-        existing.name=document.getElementById("catalogName").value;
-
-        existing.model=document.getElementById("catalogModel").value;
-
-        existing.price=Number(document.getElementById("catalogPrice").value || 0);
-
-        existing.date=document.getElementById("catalogDate").value;
-
-    }else{
-
-        data.push({
-
-            id:uid(),
-
-            code,
-
-            name:document.getElementById("catalogName").value,
-
-            model:document.getElementById("catalogModel").value,
-
-            price:Number(document.getElementById("catalogPrice").value || 0),
-
-            date:document.getElementById("catalogDate").value,
-
-            oldPrices:[]
-
-        });
-
-    }
-
-    setData("catalog",data);
-
-    renderCatalog();
-
+    document.getElementById("catalogCode").value = "";
+    document.getElementById("catalogName").value = "";
+    document.getElementById("catalogModel").value = "";
+    document.getElementById("catalogPrice").value = "";
+    document.getElementById("catalogDate").value = "";
 }
 
 
-function renderCatalog(search=""){
+function renderCatalog(search = ""){
 
     const list = document.getElementById("catalogList");
+
     const info = document.getElementById("catalogResultInfo");
 
-    if(!list) return;
+    if(!list){
+        return;
+    }
 
     const data = getData("catalog");
 
@@ -2598,9 +2566,7 @@ function renderCatalog(search=""){
 
             info.textContent =
                 `Katalogda ${data.length} parça bulunuyor.`;
-
         }
-
     }
 
     if(!filtered.length){
@@ -2689,71 +2655,43 @@ function renderCatalog(search=""){
         </div>
 
     `).join("");
-
 }
 
-    if(!filtered.length){
 
-        list.innerHTML = `
-            <div class="empty">
-                🔎 "${esc(search)}" için parça bulunamadı.
-                <br><br>
-                Kodu veya parça adının bir bölümünü deneyin.
-            </div>
-        `;
+function editCatalog(id){
+
+    const data = getData("catalog");
+
+    const item = data.find(x => x.id === id);
+
+    if(!item){
+
+        alert("Parça bulunamadı.");
 
         return;
     }
 
-    list.innerHTML = filtered.map(x => `
+    document.getElementById("catalogCode").value =
+        item.code || "";
 
-        <div class="item">
+    document.getElementById("catalogName").value =
+        item.name || "";
 
-            <h3>📋 ${esc(x.code || "Stok kodu yok")}</h3>
+    document.getElementById("catalogModel").value =
+        item.model || "";
 
-            <p>
-                🔧 <strong>${esc(x.name || "Parça adı yok")}</strong>
-            </p>
+    document.getElementById("catalogPrice").value =
+        item.price || "";
 
-            <p>
-                🚛 Araç / Model:
-                ${esc(x.model || "Belirtilmemiş")}
-            </p>
+    document.getElementById("catalogDate").value =
+        item.date || "";
 
-            <p>
-                💰 Güncel Fiyat:
-                <strong>${money(x.price)}</strong>
-            </p>
+    document.getElementById("catalogCode").focus();
 
-            <p>
-                📅 Fiyat tarihi:
-                ${esc(x.date || "Belirtilmemiş")}
-            </p>
-
-            <p>
-                🔄 Eski fiyat:
-                ${(x.oldPrices || []).length} kayıt
-            </p>
-
-            <div class="actions">
-
-                <button
-                    class="btn-edit"
-                    onclick="editCatalog('${x.id}')">
-                    ✏️ Düzenle
-                </button>
-
-                <button
-                    class="btn-delete"
-                    onclick="deleteItem('catalog','${x.id}')">
-                    🗑️ Sil
-                </button>
-
-            </div>
-
-        </div>
-
-    `).join("");
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 
 }
 
