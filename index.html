@@ -2309,6 +2309,21 @@ function loginUser() {
 
     if (user !== "" && users[user] === password) {
 
+        localStorage.setItem("dagOtoUser", user);
+
+        document.getElementById("loginScreen").style.display = "none";
+        error.style.display = "none";
+
+    } else {
+
+        error.style.display = "block";
+
+    }
+}
+    };
+
+    if (user !== "" && users[user] === password) {
+
         document.getElementById("loginScreen").style.display = "none";
         error.style.display = "none";
 
