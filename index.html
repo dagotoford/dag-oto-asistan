@@ -483,22 +483,6 @@ width:48px;height:48px;font-size:20px;cursor:pointer;">
 ▶
 </button>
 
-<script>
-const bgMusic = document.getElementById("bgMusic");
-const musicBtn = document.getElementById("musicBtn");
-
-bgMusic.volume = 0.25;
-
-function toggleMusic() {
-    if (bgMusic.paused) {
-        bgMusic.play();
-        musicBtn.textContent = "⏸";
-    } else {
-        bgMusic.pause();
-        musicBtn.textContent = "▶";
-    }
-}
-</script>
 <header class="header">
     <div class="logo">DAĞ OTO <span>ASİSTAN</span></div>
 
@@ -2273,7 +2257,8 @@ function updateMusicButton() {
 }
 
 function toggleMusic() {
-    const radio = document.getElementById("radioPlayer");
+
+    const radio = document.getElementById("bgMusic");
 
     if (!radio) {
         alert("Radyo oynatıcı bulunamadı.");
@@ -2281,6 +2266,7 @@ function toggleMusic() {
     }
 
     if (radio.paused) {
+
         radio.play()
             .then(() => {
                 musicPlaying = true;
@@ -2289,15 +2275,19 @@ function toggleMusic() {
             .catch(() => {
                 alert("Radyo başlatılamadı. Tekrar ▶ butonuna bas.");
             });
+
     } else {
+
         radio.pause();
         musicPlaying = false;
         updateMusicButton();
+
     }
 }
 
 function musicVolume() {
-    const radio = document.getElementById("radioPlayer");
+
+    const radio = document.getElementById("bgMusic");
 
     if (radio) {
         radio.muted = !radio.muted;
