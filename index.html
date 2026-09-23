@@ -365,6 +365,114 @@ footer{
 </head>
 
 <body>
+    <!-- GİRİŞ EKRANI -->
+<div id="loginScreen" style="
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    background:#071a35;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+">
+    <div style="
+        width:100%;
+        max-width:420px;
+        background:#0c2344;
+        border:1px solid #1b4272;
+        border-top:4px solid #d71920;
+        border-radius:20px;
+        padding:30px;
+        box-shadow:0 15px 50px rgba(0,0,0,.4);
+    ">
+
+        <div style="text-align:center;margin-bottom:25px;">
+            <div style="font-size:32px;font-weight:800;">
+                DAĞ OTO <span style="color:#e21b23;">FORD</span>
+            </div>
+
+            <div style="
+                color:#9eb0c6;
+                margin-top:8px;
+                font-size:14px;
+            ">
+                Dağ Oto Asistan
+            </div>
+        </div>
+
+        <div style="
+            color:#fff;
+            font-size:15px;
+            font-weight:700;
+            margin-bottom:10px;
+        ">
+            Kullanıcı Bilgisi
+        </div>
+
+        <select id="loginUser" style="
+            width:100%;
+            padding:14px;
+            border-radius:10px;
+            border:1px solid #35577e;
+            background:#071a35;
+            color:#fff;
+            margin-bottom:15px;
+            font-size:15px;
+        ">
+            <option value="">Kullanıcı seçin</option>
+            <option value="Yavuz">🔧 Yedek Parçacı — Yavuz</option>
+            <option value="Enes">⚙️ Mekanikçi — Enes</option>
+            <option value="Ramazan">⚡ Elektrikçi — Ramazan</option>
+            <option value="Hülya">💰 Muhasebeci — Hülya</option>
+        </select>
+
+        <input
+            id="loginPassword"
+            type="password"
+            placeholder="🔒 Şifre"
+            autocomplete="current-password"
+            style="
+                width:100%;
+                padding:14px;
+                border-radius:10px;
+                border:1px solid #35577e;
+                background:#071a35;
+                color:#fff;
+                margin-bottom:15px;
+                font-size:15px;
+            "
+        >
+
+        <button
+            onclick="loginUser()"
+            style="
+                width:100%;
+                padding:14px;
+                border:0;
+                border-radius:10px;
+                background:#d71920;
+                color:#fff;
+                font-size:16px;
+                font-weight:700;
+                cursor:pointer;
+            "
+        >
+            GİRİŞ YAP
+        </button>
+
+        <div id="loginError" style="
+            display:none;
+            color:#ff5c63;
+            text-align:center;
+            margin-top:12px;
+            font-size:14px;
+        ">
+            Kullanıcı veya şifre hatalı.
+        </div>
+
+    </div>
+</div>
 <audio id="bgMusic" controls preload="none" style="display:none;">
     <source src="https://yayin.kalpfm.com:8080/stream" type="audio/mpeg">
 </audio>
