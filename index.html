@@ -2307,6 +2307,24 @@ function loginUser() {
         "Hülya": "1234"
     };
 
+    if (user && users[user] === password) {
+
+        localStorage.setItem("dagOtoUser", user);
+
+        document.getElementById("loginScreen").style.display = "none";
+
+        error.style.display = "none";
+
+        applyPermissions();
+
+    } else {
+
+        error.style.display = "block";
+
+    }
+}
+    };
+
     if (user !== "" && users[user] === password) {
 
         localStorage.setItem("dagOtoUser", user);
