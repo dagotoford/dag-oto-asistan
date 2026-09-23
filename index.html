@@ -960,13 +960,15 @@ width:48px;height:48px;font-size:20px;cursor:pointer;">
         <br>
 
         <button class="primary" onclick="saveCatalog()">Kataloğa Ekle</button>
-
+<button class="primary" onclick="importFordCatalog()">
+    📥 Ford Kataloğunu Yükle
+</button>
     </div>
 
 <div class="search">
     <input
         id="catalogSearch"
-        placeholder="🔎 Parça kodu veya parça adı ara... Örn: GC46"
+     placeholder="🔎 Kod, OEM, FINIS, parça adı veya model ara... Örn: GC46"
         oninput="renderCatalog(this.value)"
     >
 </div>
@@ -1218,7 +1220,550 @@ const DB_KEYS = [
 function getData(key){
     return JSON.parse(localStorage.getItem(key) || "[]");
 }
+function importFordCatalog(){
 
+    const fordParts = [
+
+        {
+            code:"GC46 6A228 AE",
+            oem:"GC466A228AE",
+            finis:"T315683",
+            name:"FORD CARGO KAYIŞ GERGİSİ 4142 - F-MAX",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6A228 BD",
+            oem:"GC466A228BD",
+            finis:"T317664",
+            name:"FORD CARGO KAYIŞ GERGİSİ 4142 - F-MAX",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6055 AB",
+            oem:"GC466055AB",
+            finis:"T217943",
+            name:"FORD CARGO - F-MAX SİLİNDİR GÖMLEĞİ",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6303 AK",
+            oem:"GC466303AK",
+            finis:"T421857 T409738",
+            name:"FORD CARGO KRANK MİLİ",
+            model:"1842 / 1848 / 4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6050 BG",
+            oem:"GC466050BG",
+            finis:"T422647",
+            name:"FORD CARGO SİLİNDİR KAPAĞI",
+            model:"1833 / 2533 / 3233",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6C301 AC",
+            oem:"GC466C301AC",
+            finis:"T427862",
+            name:"FORD CARGO 4142 / F-MAX V KAYIŞI",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9F593 BB",
+            oem:"GC469F593BB",
+            finis:"T218010",
+            name:"FORD CARGO YAKIT ENJEKTÖRÜ 4142",
+            model:"4142",
+            category:"Yakıt Sistemi",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9F593 CA",
+            oem:"GC469F593CA",
+            finis:"T228362",
+            name:"FORD CARGO YAKIT ENJEKTÖRÜ 1833 - 2533",
+            model:"1833 / 2533",
+            category:"Yakıt Sistemi",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6K858 AC",
+            oem:"GC466K858AC",
+            finis:"T217877",
+            name:"FORD CARGO YAĞLAMA JETİ - FISKİYE",
+            model:"Ford Cargo / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 8575 AA",
+            oem:"GC468575AA",
+            finis:"T217879",
+            name:"FORD CARGO TERMOSTAT KOMPLE",
+            model:"4142 / F-MAX",
+            category:"Soğutma",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9A460 AH",
+            oem:"GC469A460AH",
+            finis:"T342101",
+            name:"FORD CARGO EGZOZ MANİFOLDU ORTA",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6K056 CB",
+            oem:"GC466K056CB",
+            finis:"T222535",
+            name:"FORD CARGO MOTOR ARKA TAKOZU",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6C344 BB",
+            oem:"GC466C344BB",
+            finis:"T342144",
+            name:"FORD CARGO GERGİ KASNAĞI",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6A754 DA",
+            oem:"GC466A754DA",
+            finis:"T218878",
+            name:"FORD CARGO KOMPRESÖR DİŞLİSİ",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6A754 CA",
+            oem:"GC466A754CA",
+            finis:"T218877",
+            name:"FORD CARGO KOMPRESÖR DİŞLİSİ",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6A754 BA",
+            oem:"GC466A754BA",
+            finis:"T218029",
+            name:"FORD CARGO KOMPRESÖR DİŞLİSİ",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6C315 AA",
+            oem:"GC466C315AA",
+            finis:"T219448",
+            name:"FORD CARGO KRANK SENSÖRÜ",
+            model:"4142 / F-MAX",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 8005 BD",
+            oem:"GC468005BD",
+            finis:"T265946",
+            name:"FORD CARGO RADYATÖR KOMPLE",
+            model:"Ford Cargo",
+            category:"Soğutma",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 7563 EA",
+            oem:"GC467563EA",
+            finis:"T221976",
+            name:"FORD CARGO DEBRİYAJ BASKISI",
+            model:"4142 / F-MAX Otomatik",
+            category:"Şanzıman",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 7550 HA",
+            oem:"GC467550HA",
+            finis:"T231059",
+            name:"FORD CARGO DEBRİYAJ BALATASI EURO 6",
+            model:"Euro 6",
+            category:"Şanzıman",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 7550 FB",
+            oem:"GC467550FB",
+            finis:"T333209",
+            name:"FORD CARGO DEBRİYAJ BALATASI 4142",
+            model:"4142 Manuel",
+            category:"Şanzıman",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 7563 GB",
+            oem:"GC467563GB",
+            finis:"T228059",
+            name:"FORD CARGO DEBRİYAJ BASKISI 4142 - F-MAX",
+            model:"4142 / F-MAX",
+            category:"Şanzıman",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 2B372 AB",
+            oem:"GC462B372AB",
+            finis:"T337190",
+            name:"FORD CARGO ABS SENSÖRÜ SOL",
+            model:"4142 / F-MAX",
+            category:"Fren",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 2B372 BB",
+            oem:"GC462B372BB",
+            finis:"T337191",
+            name:"FORD CARGO ABS SENSÖRÜ SAĞ",
+            model:"4142 / F-MAX",
+            category:"Fren",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6744 AD",
+            oem:"GC466744AD",
+            finis:"T298570",
+            name:"ANA YAĞ FİLTRESİ",
+            model:"Ford Cargo",
+            category:"Filtre",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 8A469 AA",
+            oem:"GC468A469AA",
+            finis:"T217992",
+            name:"SOĞUTMA SUYU FİLTRESİ",
+            model:"Ford Cargo",
+            category:"Filtre",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9155 BG",
+            oem:"GC469155BG",
+            finis:"T386710",
+            name:"YAKIT FİLTRE KOMPLE",
+            model:"Ford Cargo",
+            category:"Filtre",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 8600 AA",
+            oem:"GC468600AA",
+            finis:"T220441",
+            name:"RADYATÖR PERVANESİ",
+            model:"H476",
+            category:"Soğutma",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6506 BB",
+            oem:"GC466506BB",
+            finis:"T336788",
+            name:"KOL VE ŞAFT KOMPLE",
+            model:"H476",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 14401 BAM N",
+            oem:"GC4614401BAMN",
+            finis:"T307050",
+            name:"ANA TESİSAT",
+            model:"H476",
+            category:"Elektrik",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 15K600 AC N",
+            oem:"GC4615K600ACN",
+            finis:"T222371",
+            name:"MODÜL",
+            model:"H476",
+            category:"Elektrik",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6250 BD N",
+            oem:"GC466250BDN",
+            finis:"T350786",
+            name:"EKSANTRİK MİLİ",
+            model:"H476",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 7J015 RA N",
+            oem:"GC467J015RAN",
+            finis:"T283011",
+            name:"PİSTON",
+            model:"H476",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9002 CB N",
+            oem:"GC469002CBN",
+            finis:"T222641",
+            name:"YAKIT DEPOSU",
+            model:"H566",
+            category:"Yakıt Sistemi",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 6394 AL N",
+            oem:"GC466394ALN",
+            finis:"T369532",
+            name:"VOLAN MUHAFAZASI",
+            model:"H476",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 3590 AC N",
+            oem:"GC463590ACN",
+            finis:"T229952",
+            name:"PITMAN KOLU",
+            model:"H476",
+            category:"Direksiyon",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9P809 CB N",
+            oem:"GC469P809CBN",
+            finis:"T318766",
+            name:"HAVA BACASI ÖRDEK KOMPLE",
+            model:"Ford Cargo",
+            category:"Hava Sistemi",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9T297 DA N",
+            oem:"GC469T297DAN",
+            finis:"T221159",
+            name:"BANJO CİVATA - SOLENOİD VALF",
+            model:"Ford Cargo",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        },
+
+        {
+            code:"GC46 9T297 CA N",
+            oem:"GC469T297CAN",
+            finis:"T222680",
+            name:"BANJO CİVATA - SOLENOİD VALF",
+            model:"Ford Cargo",
+            category:"Motor",
+            price:0,
+            date:"",
+            oldPrices:[]
+        }
+
+    ];
+
+    const mevcut = getData("catalog");
+
+    let eklenen = 0;
+
+    fordParts.forEach(part => {
+
+        const varMi = mevcut.some(x =>
+            String(x.code || "")
+                .replace(/\s/g,"")
+                .toUpperCase()
+            ===
+            String(part.code || "")
+                .replace(/\s/g,"")
+                .toUpperCase()
+        );
+
+        if(!varMi){
+
+            mevcut.push({
+                id:uid(),
+                ...part
+            });
+
+            eklenen++;
+        }
+
+    });
+
+       setData("catalog",mevcut);
+
+    renderCatalog();
+function editCatalog(id){
+
+    const data = getData("catalog");
+
+    const item = data.find(x => x.id === id);
+
+    if(!item){
+        alert("Parça bulunamadı.");
+        return;
+    }
+
+    document.getElementById("catalogCode").value =
+        item.code || "";
+
+    document.getElementById("catalogName").value =
+        item.name || "";
+
+    document.getElementById("catalogModel").value =
+        item.model || "";
+
+    document.getElementById("catalogPrice").value =
+        item.price || "";
+
+    document.getElementById("catalogDate").value =
+        item.date || "";
+
+    document.getElementById("catalogCode").focus();
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+    alert(
+        eklenen +
+        " Ford parça kaydı kataloğa eklendi."
+    );
+}
 function setData(key,data){
     localStorage.setItem(key,JSON.stringify(data));
 }
@@ -1226,7 +1771,13 @@ function setData(key,data){
 function uid(){
     return Date.now().toString() + Math.random().toString(16).slice(2);
 }
+function normalizePartCode(value){
 
+    return String(value || "")
+        .replace(/\s+/g,"")
+        .toLocaleUpperCase("tr-TR");
+
+}
 function money(value){
     return Number(value || 0).toLocaleString("tr-TR",{
         minimumFractionDigits:2,
@@ -1527,17 +2078,34 @@ function calculateService(){
 
 function findPart(){
 
-    const code=document.getElementById("serviceStock").value.trim();
+    const code =
+        document.getElementById("serviceStock").value.trim();
 
-    const catalog=getData("catalog");
+    if(!code){
+        return;
+    }
 
-    const part=catalog.find(x=>x.code===code);
+    const normalized = normalizePartCode(code);
+
+    const catalog = getData("catalog");
+
+    const part = catalog.find(x =>
+
+        normalizePartCode(x.code) === normalized ||
+
+        normalizePartCode(x.oem) === normalized ||
+
+        normalizePartCode(x.finis) === normalized
+
+    );
 
     if(part){
 
-        document.getElementById("servicePart").value=part.name;
+        document.getElementById("servicePart").value =
+            part.name || "";
 
-        document.getElementById("servicePrice").value=part.price;
+        document.getElementById("servicePrice").value =
+            part.price || 0;
 
         calculateService();
 
@@ -1859,17 +2427,69 @@ function renderParts(){
 
 function saveCatalog(){
 
-    const data=getData("catalog");
+    const data = getData("catalog");
 
-    const code=document.getElementById("catalogCode").value.trim();
+    const code = document.getElementById("catalogCode").value.trim();
 
     if(!code){
-
         alert("Stok kodu girin.");
-
         return;
+    }
+
+    const normalizedCode = normalizePartCode(code);
+
+    const existing = data.find(x =>
+        normalizePartCode(x.code) === normalizedCode
+    );
+
+    if(existing){
+
+        existing.oldPrices = existing.oldPrices || [];
+
+        existing.oldPrices.push({
+            price: existing.price,
+            date: existing.date
+        });
+
+        existing.code = code;
+        existing.name = document.getElementById("catalogName").value.trim();
+        existing.model = document.getElementById("catalogModel").value.trim();
+        existing.price = Number(
+            document.getElementById("catalogPrice").value || 0
+        );
+        existing.date = document.getElementById("catalogDate").value;
+
+    }else{
+
+        data.push({
+
+            id: uid(),
+
+            code: code,
+
+            name: document.getElementById("catalogName").value.trim(),
+
+            model: document.getElementById("catalogModel").value.trim(),
+
+            price: Number(
+                document.getElementById("catalogPrice").value || 0
+            ),
+
+            date: document.getElementById("catalogDate").value,
+
+            oldPrices: []
+
+        });
 
     }
+
+    setData("catalog", data);
+
+    renderCatalog();
+
+    alert("Parça kataloğa kaydedildi.");
+
+}
 
     const existing=data.find(x=>x.code===code);
 
@@ -1940,17 +2560,29 @@ function renderCatalog(search=""){
         const code = String(x.code || "")
             .toLocaleLowerCase("tr-TR");
 
+        const oem = String(x.oem || "")
+            .toLocaleLowerCase("tr-TR");
+
+        const finis = String(x.finis || "")
+            .toLocaleLowerCase("tr-TR");
+
         const name = String(x.name || "")
             .toLocaleLowerCase("tr-TR");
 
         const model = String(x.model || "")
             .toLocaleLowerCase("tr-TR");
 
+        const category = String(x.category || "")
+            .toLocaleLowerCase("tr-TR");
+
         return (
             !q ||
             code.includes(q) ||
+            oem.includes(q) ||
+            finis.includes(q) ||
             name.includes(q) ||
-            model.includes(q)
+            model.includes(q) ||
+            category.includes(q)
         );
 
     });
@@ -1958,14 +2590,107 @@ function renderCatalog(search=""){
     if(info){
 
         if(q){
+
             info.textContent =
                 `"${search}" için ${filtered.length} parça bulundu.`;
+
         }else{
+
             info.textContent =
                 `Katalogda ${data.length} parça bulunuyor.`;
+
         }
 
     }
+
+    if(!filtered.length){
+
+        list.innerHTML = `
+            <div class="empty">
+
+                🔎 "${esc(search)}" için parça bulunamadı.
+
+                <br><br>
+
+                Stok kodu, OEM kodu, FINIS kodu,
+                parça adı veya araç modeli deneyin.
+
+            </div>
+        `;
+
+        return;
+    }
+
+    list.innerHTML = filtered.map(x => `
+
+        <div class="item">
+
+            <h3>
+                📋 ${esc(x.code || "Stok kodu yok")}
+            </h3>
+
+            <p>
+                🔧 <strong>
+                    ${esc(x.name || "Parça adı yok")}
+                </strong>
+            </p>
+
+            <p>
+                🏷️ OEM:
+                ${esc(x.oem || "Yok")}
+            </p>
+
+            <p>
+                🔢 FINIS:
+                ${esc(x.finis || "Yok")}
+            </p>
+
+            <p>
+                🚛 Araç / Model:
+                ${esc(x.model || "Belirtilmemiş")}
+            </p>
+
+            <p>
+                📂 Kategori:
+                ${esc(x.category || "Belirtilmemiş")}
+            </p>
+
+            <p>
+                💰 Güncel Fiyat:
+                <strong>${money(x.price)}</strong>
+            </p>
+
+            <p>
+                📅 Fiyat tarihi:
+                ${esc(x.date || "Belirtilmemiş")}
+            </p>
+
+            <p>
+                🔄 Eski fiyat:
+                ${(x.oldPrices || []).length} kayıt
+            </p>
+
+            <div class="actions">
+
+                <button
+                    class="btn-edit"
+                    onclick="editCatalog('${x.id}')">
+                    ✏️ Düzenle
+                </button>
+
+                <button
+                    class="btn-delete"
+                    onclick="deleteItem('catalog','${x.id}')">
+                    🗑️ Sil
+                </button>
+
+            </div>
+
+        </div>
+
+    `).join("");
+
+}
 
     if(!filtered.length){
 
@@ -2032,38 +2757,6 @@ function renderCatalog(search=""){
 
 }
 
-    list.innerHTML=filtered.length
-        ? filtered.map(x=>`
-
-            <div class="item">
-
-                <h3>📋 ${esc(x.code)}</h3>
-
-                <p>Parça: ${esc(x.name)}</p>
-
-                <p>Araç: ${esc(x.model)}</p>
-
-                <p>Fiyat: ${money(x.price)}</p>
-
-                <p>Fiyat tarihi: ${esc(x.date)}</p>
-
-                <p>Eski fiyat sayısı: ${(x.oldPrices || []).length}</p>
-
-                <div class="actions">
-
-                    <button class="btn-delete"
-                    onclick="deleteItem('catalog','${x.id}')">
-                    🗑️ Sil
-                    </button>
-
-                </div>
-
-            </div>
-
-        `).join("")
-        : '<div class="empty">Parça bulunamadı.</div>';
-
-}
 
 
 /* ÖDEME */
