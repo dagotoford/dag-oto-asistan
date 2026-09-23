@@ -2304,49 +2304,8 @@ function musicVolume() {
         radio.muted = !radio.muted;
     }
 }
-
 function loginUser() {
-const permissions = {
-    "Yavuz": ["parts", "catalog"],
-    "Enes": ["mechanical"],
-    "Ramazan": ["all"],
-    "Hülya": ["all"]
-};
 
-function applyPermissions() {
-document.addEventListener("DOMContentLoaded", function () {
-
-    const user = localStorage.getItem("dagOtoUser");
-
-    if (user) {
-        document.getElementById("loginScreen").style.display = "none";
-        applyPermissions();
-    }
-
-});
-    const user = localStorage.getItem("dagOtoUser");
-
-    if (!user) return;
-
-    document.querySelectorAll(".card").forEach(card => {
-
-        const page = card.closest(".page");
-
-        if (!page) return;
-
-        const pageId = page.id;
-
-        if (
-            permissions[user].includes("all") ||
-            permissions[user].includes(pageId)
-        ) {
-            card.style.display = "";
-        } else {
-            card.style.display = "none";
-        }
-
-    });
-}
     const user = document.getElementById("loginUser").value;
     const password = document.getElementById("loginPassword").value;
     const error = document.getElementById("loginError");
@@ -2363,24 +2322,6 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("dagOtoUser", user);
 
         document.getElementById("loginScreen").style.display = "none";
-
-        error.style.display = "none";
-
-        applyPermissions();
-
-    } else {
-
-        error.style.display = "block";
-
-    }
-}
-    };
-
-    if (user !== "" && users[user] === password) {
-
-        localStorage.setItem("dagOtoUser", user);
-
-        document.getElementById("loginScreen").style.display = "none";
         error.style.display = "none";
 
     } else {
@@ -2389,20 +2330,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 }
-    };
-
-    if (user !== "" && users[user] === password) {
-
-        document.getElementById("loginScreen").style.display = "none";
-        error.style.display = "none";
-
-    } else {
-
-        error.style.display = "block";
-
-    }
-}
-
 </script>
 
 </body>
