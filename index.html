@@ -1235,11 +1235,23 @@ function esc(text){
 
 function openPage(id){
 
+    const user = localStorage.getItem("dagOtoUser");
+
+    if (!user) return;
+
+    if (
+        !permissions[user].includes("all") &&
+        !permissions[user].includes(id)
+    ) {
+        alert("Bu bölüme erişim yetkiniz yok.");
+        return;
+    }
+
     document.querySelectorAll(".page").forEach(p=>{
         p.classList.remove("active");
     });
 
-    const page=document.getElementById(id);
+    const page = document.getElementById(id);
 
     if(page){
         page.classList.add("active");
@@ -1247,7 +1259,6 @@ function openPage(id){
 
     refreshAll();
 }
-
 
 function refreshAll(){
 
