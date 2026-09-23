@@ -2155,122 +2155,54 @@ function deleteAllData(){
 
 
 /* MÜZİK */
+let musicPlaying = false;
 
-let musicPlaying=false;
+function updateMusicButton() {
+    const buttons = document.querySelectorAll("#musicBtn");
 
-let audioContext=null;
+    buttons.forEach(btn => {
+        btn.textContent = musicPlaying ? "⏸" : "▶";
+    });
+}
 
-let musicTimer=null;
-
-
-/*
-    Gerçek şarkı dosyası olmadan tarayıcı içinde
-    basit bir hareketli müzik altyapısı oluşturuyoruz.
-*/
-
-function startGeneratedMusic(){
-
-    if(!audioContext){
-
-        audioContext=
-            new (window.AudioContext ||
-            window.webkitAudioContext)();
-
+function toggleMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play()
+            .then(() => {
+                musicPlaying = true;
+                updateMusicButton();
+            })
+            .catch(() => {
+                alert("Müzik başlatılamadı. Tekrar ▶ butonuna bas.");
+            });
+    } else {
+        bgMusic.pause();
+        musicPlaying = false;
+        updateMusicButton();
     }
-
-    if(audioContext.state==="suspended"){
-        audioContext.resume();
-    }
-
-    musicPlaying=true;
-
-    document.getElementById("musicBtn").textContent="⏸";
-
-    playBeat();
-
 }
 
+function musicVolume() {
+    bgMusic.muted = !bgMusic.muted;
 
-function playBeat(){
+    const buttons = document.querySelectorAll('button[title="Ses"]');
 
-    if(!musicPlaying)return;
-
-    const now=audioContext.currentTime;
-
-    const osc=audioContext.createOscillator();
-
-    const gain=audioContext.createGain();
-
-    osc.type="sawtooth";
-
-    osc.frequency.value=
-        110 + Math.floor(Math.random()*100);
-
-    gain.gain.setValueAtTime(
-        0.0001,
-        now
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-        0.035,
-        now+0.02
-    );
-
-    gain.gain.exponentialRampToValueAtTime(
-        0.0001,
-        now+0.20
-    );
-
-    osc.connect(gain);
-
-    gain.connect(audioContext.destination);
-
-    osc.start(now);
-
-    osc.stop(now+0.22);
-
-    musicTimer=setTimeout(playBeat,250);
-
+    buttons.forEach(btn => {
+        btn.textContent = bgMusic.muted ? "🔇" : "🔊";
+    });
 }
 
+bgMusic.volume = 0.25;
 
-function stopGeneratedMusic(){
+bgMusic.addEventListener("play", () => {
+    musicPlaying = true;
+    updateMusicButton();
+});
 
-    musicPlaying=false;
-
-    clearTimeout(musicTimer);
-
-    document.getElementById("musicBtn").textContent="▶";
-
-}
-
-
-function toggleMusic(){
-
-    if(musicPlaying){
-
-        stopGeneratedMusic();
-
-    }else{
-
-        startGeneratedMusic();
-
-    }
-
-}
-
-
-function musicVolume(){
-
-    alert(
-        "Müzik sesini tarayıcının kendi ses kontrolünden ayarlayabilirsiniz."
-    );
-
-}
-
-
-/* BAŞLANGIÇ */
-
+bgMusic.addEventListener("pause", () => {
+    musicPlaying = false;
+    updateMusicButton();
+});
 document.addEventListener("DOMContentLoaded",()=>{
 
     refreshAll();
