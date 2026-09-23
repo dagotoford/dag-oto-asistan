@@ -365,7 +365,31 @@ footer{
 </head>
 
 <body>
+<audio id="bgMusic" src="dag_oto_hareketli.wav" loop preload="auto"></audio>
 
+<button onclick="toggleMusic()" id="musicBtn"
+style="position:fixed;right:20px;top:80px;z-index:9999;
+background:#e30613;color:white;border:0;border-radius:50%;
+width:48px;height:48px;font-size:20px;cursor:pointer;">
+▶
+</button>
+
+<script>
+const bgMusic = document.getElementById("bgMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+bgMusic.volume = 0.25;
+
+function toggleMusic() {
+    if (bgMusic.paused) {
+        bgMusic.play();
+        musicBtn.textContent = "⏸";
+    } else {
+        bgMusic.pause();
+        musicBtn.textContent = "▶";
+    }
+}
+</script>
 <header class="header">
     <div class="logo">DAĞ OTO <span>ASİSTAN</span></div>
 
